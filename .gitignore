@@ -1,0 +1,6 @@
+dist/*.zip
+dist/*.plugin
+*.log
+tmp/
+upstream/
+output/pdf/*.png

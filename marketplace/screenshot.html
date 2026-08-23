@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PDF Bookmarks marketplace screenshot</title>
+    <link rel="stylesheet" href="screenshot.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="titlebar">
+        <div class="brand"><span class="brand-mark">◆</span> ONLYOFFICE</div>
+        <div class="document-tab"><span class="pdf-badge">PDF</span> pdf-bookmarks-demo.pdf</div>
+        <div class="window-actions">—　□　×</div>
+      </header>
+
+      <nav class="ribbon">
+        <div class="tabs">
+          <span>File</span><span>Home</span><span>Comment</span><span>View</span><span class="active">Plugins</span>
+        </div>
+        <div class="tools">
+          <div class="tool"><span class="tool-icon">⌕</span><span>Plugin<br>Manager</span></div>
+          <div class="tool selected">
+            <img src="../pdf-bookmarks/resources/light/icon@2x.png" alt="">
+            <span>PDF<br>Bookmarks</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="workspace">
+        <aside class="left-rail">
+          <span>⌕</span><span>▤</span><span>▧</span>
+          <img class="rail-bookmark" src="../pdf-bookmarks/resources/light/icon.png" alt="">
+        </aside>
+
+        <aside class="plugin-panel">
+          <div class="panel-titlebar">
+            <strong>PDF Bookmarks</strong>
+            <span>⌁　×</span>
+          </div>
+          <div class="panel-content">
+            <div class="panel-header">
+              <div>
+                <h1>PDF Bookmarks</h1>
+                <p>pdf-bookmarks-demo.pdf</p>
+              </div>
+              <div class="page-pill" id="page-pill">Page 7</div>
+            </div>
+
+            <section class="add-card">
+              <h2>Add a bookmark</h2>
+              <label for="bookmark-name">Name</label>
+              <input id="bookmark-name" value="Implementation details" readonly>
+              <button><img class="button-icon" src="../pdf-bookmarks/resources/dark/icon.png" alt=""> Bookmark current page</button>
+            </section>
+
+            <section class="saved-section">
+              <div class="saved-heading">
+                <h2>Saved bookmarks <span>3</span></h2>
+                <span class="clear">Clear all</span>
+              </div>
+              <ol class="bookmark-list">
+                <li>
+                  <div class="bookmark-main"><span class="page-number">3</span><span>Project overview</span></div>
+                  <div class="row-actions">✎　×</div>
+                </li>
+                <li class="current">
+                  <div class="bookmark-main"><span class="page-number">7</span><span>Implementation details</span></div>
+                  <div class="row-actions">✎　×</div>
+                </li>
+                <li>
+                  <div class="bookmark-main"><span class="page-number">11</span><span>Next steps</span></div>
+                  <div class="row-actions">✎　×</div>
+                </li>
+              </ol>
+            </section>
+
+            <div class="panel-status" id="panel-status">Saved locally on this computer.</div>
+          </div>
+        </aside>
+
+        <main class="document-area">
+          <div class="pdf-page">
+            <h2 id="doc-title">Implementation details</h2>
+            <p id="doc-copy">The plugin is built with HTML, CSS, and JavaScript. It follows ONLYOFFICE light, dark, and contrast-dark themes and provides scale-aware icons.</p>
+            <table>
+              <tr><th>Suggested bookmark</th><td id="table-bookmark">Implementation details</td></tr>
+              <tr><th>Demo page</th><td id="table-page">7</td></tr>
+              <tr><th>Storage</th><td>Local to this editor environment</td></tr>
+              <tr><th>PDF modified</th><td>No</td></tr>
+            </table>
+            <div class="callout" id="callout">Bookmark this page, navigate elsewhere, then return with one click.</div>
+            <div class="page-footer"><span>PDF Bookmarks marketplace demo</span><span id="footer-page">Page 7</span></div>
+          </div>
+          <footer class="statusbar"><span id="status-page">Page 7 of 12</span><span>Fit to width　 −　 Zoom 100%　 +</span></footer>
+        </main>
+      </div>
+    </div>
+    <script>
+      const shot = new URLSearchParams(location.search).get("shot") || "1";
+      const states = {
+        "1": {
+          page: 7,
+          title: "Implementation details",
+          copy: "The plugin is built with HTML, CSS, and JavaScript. It follows ONLYOFFICE light, dark, and contrast-dark themes and provides scale-aware icons.",
+          callout: "Bookmark this page, navigate elsewhere, then return with one click.",
+          status: "Saved locally on this computer."
+        },
+        "2": {
+          page: 11,
+          title: "Next steps",
+          copy: "Potential future improvements include nested bookmarks, manual ordering, color labels, and portable import or export. User feedback should determine the order.",
+          callout: "Dark and contrast-dark themes stay clear and readable.",
+          status: "Jumped to Next steps."
+        },
+        "3": {
+          page: 3,
+          title: "Project overview",
+          copy: "Long reports, research papers, textbooks, and manuals are easier to revisit when important pages have memorable names.",
+          callout: "Offline - per PDF - original file unchanged",
+          status: "3 bookmarks restored for this PDF."
+        }
+      };
+      const state = states[shot];
+      document.body.dataset.shot = shot;
+      document.getElementById("page-pill").textContent = `Page ${state.page}`;
+      document.getElementById("bookmark-name").value = state.title;
+      document.getElementById("doc-title").textContent = state.title;
+      document.getElementById("doc-copy").textContent = state.copy;
+      document.getElementById("table-bookmark").textContent = state.title;
+      document.getElementById("table-page").textContent = state.page;
+      document.getElementById("callout").textContent = state.callout;
+      document.getElementById("panel-status").textContent = state.status;
+      document.getElementById("footer-page").textContent = `Page ${state.page}`;
+      document.getElementById("status-page").textContent = `Page ${state.page} of 12`;
+      const rows = [...document.querySelectorAll(".bookmark-list li")];
+      rows.forEach((row) => row.classList.toggle("current", row.querySelector(".page-number").textContent === String(state.page)));
+    </script>
+  </body>
+</html>

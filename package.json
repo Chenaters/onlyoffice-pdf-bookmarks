@@ -1,0 +1,19 @@
+{
+  "name": "onlyoffice-pdf-bookmarks",
+  "version": "1.0.6",
+  "private": true,
+  "description": "Persistent, clickable PDF page bookmarks for ONLYOFFICE Desktop Editors.",
+  "author": "Chenaters",
+  "license": "MIT",
+  "homepage": "https://github.com/Chenaters/onlyoffice-pdf-bookmarks#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chenaters/onlyoffice-pdf-bookmarks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chenaters/onlyoffice-pdf-bookmarks/issues"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}
