@@ -45,14 +45,23 @@ test("ships marketplace documentation and assets", () => {
       `Marketplace ${fileName} is missing`
     );
   }
+
+  const languages = JSON.parse(
+    fs.readFileSync(path.join(pluginRoot, "translations", "langs.json"), "utf8")
+  );
+  assert.deepEqual(languages, ["en-US"]);
 });
 
-test("production source contains no debug statements or external runtime URLs", () => {
+test("production source contains no debug statements or unapproved external runtime URLs", () => {
   const sourceFiles = ["index.html", "plugin.js", "bookmarks-store.js"];
+  const sdkUrl = "https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js";
 
   for (const fileName of sourceFiles) {
     const source = fs.readFileSync(path.join(pluginRoot, fileName), "utf8");
     assert.doesNotMatch(source, /\bdebugger\b|console\.(?:log|debug|table)\s*\(/);
-    assert.doesNotMatch(source, /https?:\/\//);
+    assert.doesNotMatch(source.replace(sdkUrl, ""), /https?:\/\//);
   }
+
+  const index = fs.readFileSync(path.join(pluginRoot, "index.html"), "utf8");
+  assert.match(index, new RegExp(`<script src="${sdkUrl.replace(/[./]/g, "\\$&")}"></script>`));
 });
